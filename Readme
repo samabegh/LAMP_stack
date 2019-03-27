@@ -1,6 +1,6 @@
 ## LAMP stack stands for - Linux for OS, Apache for webserver, MySQL for RDBMS, PHP for scripting
 ## Alternatives can be
-## Linux OS                   -- L (OS)
+## Linux, Unix OS             -- L (OS) ;# Windows (WAMP stack)
 ## Apache, Nginx, Lighttpd    -- A (WebServer)
 ## MySQL, MariaDB, PostgreSQL -- M (Database)
 ## PHP, Python, Perl          -- P (Scripting)
