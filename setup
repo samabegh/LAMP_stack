@@ -1,0 +1,23 @@
+## LAMP stack stands for - Linux for OS, Apache for webserver, MySQL for RDBMS, PHP for scripting
+## Alternatives can be
+## Linux OS                   -- L (OS)
+## Apache, Nginx, Lighttpd    -- A (WebServer)
+## MySQL, MariaDB, PostgreSQL -- M (Database)
+## PHP, Python, Perl          -- P (Scripting)
+
+## I will be running this setup using Ansible ad-hoc commands
+## My LAMP server is 172.31.43.162; which i had specified in 'hosts' file under 'webserver' tag
+
+## Apache HTTPD install using 'yum' module
+[ec2-user@ip-172-31-33-0 ansible_playbooks]$ ansible webservers -i hosts -m yum -a "name=httpd state=present" -b 
+172.31.43.162 | SUCCESS => {
+    "changed": true, 
+
+## Start the service using the module 'service'
+
+[ec2-user@ip-172-31-33-0 ansible_playbooks]$ ansible webservers -i hosts -m service -a "name=httpd state=started" -b
+172.31.43.162 | SUCCESS => {
+
+
+$$ Moving to playbooks for rest of the setup
+
