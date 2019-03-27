@@ -13,6 +13,78 @@
 172.31.43.162 | SUCCESS => {
 
 
-$$ Moving to playbooks for rest of the setup
+## Moving to playbooks for rest of the setup - Code below
+
+## I have separated the installation of each service to different tasks; but we can combine them to one task as well using the
+## {{item}} and with_items as shown in php services installation
+
+## yum and shell or command cannot be combined in one task
+================================================================================================================================
+================================================================================================================================
+
+---
+- name: This will install LAMP stack on a remote server
+  hosts: webservers
+  become: True
+  tasks:
+    - name: install Apache web server
+      yum: name=httpd state=present
+
+    - name: Install PHP
+      yum: "name={{item}} state=present"
+      with_items:
+        - php
+        - php-mysql
+        - php-mbstring
+
+    - name: Install MariaDB
+      yum: name=mariadb-server state=present
+      
+    - name: Start the services 
+      shell: "systemctl start {{item}}"
+      with_items:
+        - httpd
+        - mariadb
+
+    - name: enable services for reboot           
+      shell: "systemctl enable {{item}}"
+      with_items:
+        - httpd
+        - mariadb
+================================================================================================================================
+================================================================================================================================
+
+[ec2-user@ip-172-31-33-0 ansible_playbooks]$ cat hosts 
+[webservers]
+172.31.43.162
+
+[ec2-user@ip-172-31-33-0 ansible_playbooks]$ ansible-playbook -i hosts lamp_install.yml 
+
+PLAY [This will install LAMP stack on a remote server] *******************************************
+
+TASK [Gathering Facts] ***************************************************************************
+ok: [172.31.43.162]
+
+TASK [install Apache web server] *****************************************************************
+changed: [172.31.43.162]
+
+TASK [Install PHP] *******************************************************************************
+changed: [172.31.43.162] => (item=[u'php', u'php-mysql', u'php-mbstring'])
+
+TASK [Install MariaDB] ***************************************************************************
+changed: [172.31.43.162]
+
+TASK [Start webserver and db server services] ****************************************************
+changed: [172.31.43.162] => (item=httpd)
+changed: [172.31.43.162] => (item=mariadb)
+
+TASK [enable webserver and db server services] ***************************************************
+changed: [172.31.43.162] => (item=httpd)
+changed: [172.31.43.162] => (item=mariadb)
+
+PLAY RECAP ***************************************************************************************
+172.31.43.162              : ok=6    changed=5    unreachable=0    failed=0   
+
+[ec2-user@ip-172-31-33-0 ansible_playbooks]$ 
 
 
