@@ -1,5 +1,5 @@
 
-## I will be running this setup using Ansible ad-hoc commands
+## I will be running this setup using Ansible ad-hoc commands.
 ## My LAMP server is 172.31.43.162; which i had specified in 'hosts' file under 'webserver' tag
 
 ## Apache HTTPD install using 'yum' module
