@@ -5,4 +5,4 @@
 ## MySQL, MariaDB, PostgreSQL -- M (Database)
 ## PHP, Python, Perl          -- P (Scripting)
 
-I will be using Ansible playbooks to run this setup
+I will be using Ansible playbooks to run this setup.
